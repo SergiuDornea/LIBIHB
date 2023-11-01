@@ -5,4 +5,8 @@ plugins {
 
     // GOOGLE SERVICES (FIREBASE)
     id("com.google.gms.google-services") version "4.4.0" apply false
+
+    //HILT
+    id("com.google.dagger.hilt.android") version "2.47" apply false
+
 }
