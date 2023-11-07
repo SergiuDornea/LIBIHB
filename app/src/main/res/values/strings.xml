@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">LIBIHB</string>
+
+<!--    log in page related-->
     <string name="app_logo">application logo</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="visible_password">visible password</string>
+    <string name="invisible_password">invisible password</string>
+    <string name="password_requirement">The password must be at least 6 characters</string>
 </resources>

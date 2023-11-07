@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.sergiu.libihb.presentation.components.LogForm
 import com.sergiu.libihb.presentation.components.Logo
 
 @Composable
@@ -19,7 +20,11 @@ fun LogInScreen(navController: NavController){
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // add the logo
             Logo();
+            LogForm();
         }
     }
 }
+
+
