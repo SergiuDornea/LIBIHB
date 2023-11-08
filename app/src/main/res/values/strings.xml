@@ -8,4 +8,6 @@
     <string name="visible_password">visible password</string>
     <string name="invisible_password">invisible password</string>
     <string name="password_requirement">The password must be at least 6 characters</string>
+    <string name="login_icon_description">log in icon</string>
+    <string name="login_text">Log in</string>
 </resources>

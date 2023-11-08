@@ -1,5 +1,7 @@
 package com.sergiu.libihb.presentation.components
 
+import android.graphics.drawable.Icon
+import android.telephony.SmsMessage.SubmitPdu
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -7,13 +9,21 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Login
 import androidx.compose.material.icons.filled.RemoveRedEye
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
@@ -28,9 +38,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -73,7 +86,8 @@ fun Logo(modifier: Modifier = Modifier){
 // this form is tied up to FIREBASE so that the log in actually happens
 fun LogForm(
     isLoading : Boolean = false ,// use it to enable/disable submit button if form empty or partially empty
-) {
+//    onSubmit:(String, String) -> Unit // function that returns the value of the input fields
+    ) {
     // variables necessary
     // i choose to use "rememberSaveable" instead of just "remember" because my option remembers the password
     // value for this example beyond any user configuration changes as: rotating the screen or interrupting the typing
@@ -123,11 +137,65 @@ fun LogForm(
             isFormValid = isFormValid,
 
         )
-
+        Spacer(modifier = Modifier.padding(top = 35.dp))
         // custom  submit button
+        SubmitButton(
+            btnText = stringResource(id = R.string.login_text),
+            btnIcon = Icons.Default.Login,
+            btnIconDescription = stringResource(id = R.string.login_icon_description),
+            isLoading = isLoading, // if is loading shoe circular progress indicator
+            enableBtn = !isLoading && isFormValid, // check if button should be enabled
+            onClick = {
+                // trim the data to prepare it to be set to FB
+                email.value = email.value.trim()
+                password.value = password.value.trim()
+            }
+        )
 
 
     }
+}
+
+// a custom submit button usable for both log in and sign in
+// to reuse code properly
+@Composable
+fun SubmitButton(
+    btnText: String,
+    btnIcon: ImageVector,
+    btnIconDescription: String,
+    isLoading: Boolean,
+    enableBtn : Boolean, // to enable / disable button
+    onClick: () -> Unit // lambda function that executes a specific action - log in user to FB or sing user to FB
+){
+    Button(
+        onClick = onClick,
+        enabled = enableBtn, // enable it only if not loading and form is valid
+        modifier = Modifier
+            .width(250.dp)
+            .height(50.dp)
+            .clip(RoundedCornerShape(bottomStart = 35.dp, topEnd = 35.dp))
+
+
+    ) {
+        if (!isLoading){
+            // is it is not loading
+            Icon(
+                imageVector = btnIcon,
+                contentDescription = btnIconDescription,
+            )
+            Spacer(modifier = Modifier.padding(end = 7.dp))
+            Text(
+                text = btnText,
+                fontWeight = FontWeight.Bold,
+
+                )
+        }else{
+            // if it is loading display a loading indicator to inform the user that something is happening
+            CircularProgressIndicator()
+        }
+
+    }
+
 }
 
 
@@ -193,10 +261,21 @@ fun CustomPasswordInputTextField(
                                 // change the value onclick to the opposite one
                                passwordIsVisible.value = !passwordIsVisible.value
                            } ) {
-                               Icon(
-                                   imageVector = Icons.Default.RemoveRedEye,
-                                   contentDescription =  stringResource(id = R.string.visible_password)
-                               )
+                                if(passwordIsVisible.value){
+                                    Icon(
+                                        imageVector = Icons.Default.Visibility,
+                                        contentDescription =  stringResource(id = R.string.visible_password)
+                                    )
+
+                                }else{
+                                    Icon(
+                                        imageVector = Icons.Default.VisibilityOff,
+                                        contentDescription =  stringResource(id = R.string.invisible_password)
+                                    )
+
+
+                                }
+
                        }
         },
 
@@ -223,3 +302,5 @@ fun CustomPasswordInputTextField(
     )
 
 }
+
+

@@ -1,8 +1,10 @@
 package com.example.libihb.screens.log
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,8 +23,9 @@ fun LogInScreen(navController: NavController){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // add the logo
-            Logo();
-            LogForm();
+            Logo()
+            LogForm()
+
         }
     }
 }
