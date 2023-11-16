@@ -1,4 +1,4 @@
-package com.example.libihb.navigation
+package com.sergiu.libihb.presentation.navigation
 
 
 // a screen holder class

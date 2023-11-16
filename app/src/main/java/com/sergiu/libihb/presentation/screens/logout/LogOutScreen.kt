@@ -1,4 +1,4 @@
-package com.example.libihb.screens.log
+package com.sergiu.libihb.presentation.screens.logout
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

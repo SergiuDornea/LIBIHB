@@ -1,4 +1,4 @@
-package com.example.libihb.screens.about
+package com.sergiu.libihb.presentation.screens.about
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

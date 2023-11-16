@@ -1,10 +1,10 @@
-package com.sergiu.libihb.presentation.screens.logscreens.`in`
+package com.sergiu.libihb.presentation.screens.login
 
 
 // the state of the values when the user opens the screen
 data class LogInFormState(
-    val password: String,
-    val email: String,
+    val password: String? = null,
+    val email: String? = null,
     val passwordError: String? = null,
     val emailError: String? = null
 )

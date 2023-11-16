@@ -1,17 +1,17 @@
-package com.example.libihb.navigation
+package com.sergiu.libihb.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.libihb.screens.about.AboutUsScreen
-import com.example.libihb.screens.contact.ContactUsScreen
-import com.example.libihb.screens.home.HomeScreen
-import com.example.libihb.screens.log.LogInScreen
-import com.example.libihb.screens.log.LogOutScreen
-import com.example.libihb.screens.main.MainScreen
-import com.example.libihb.screens.settings.SettingsScreen
-import com.example.libihb.screens.share.ShareScreen
+import com.sergiu.libihb.presentation.screens.about.AboutUsScreen
+import com.sergiu.libihb.presentation.screens.contact.ContactUsScreen
+import com.sergiu.libihb.presentation.screens.home.HomeScreen
+import com.sergiu.libihb.presentation.screens.logout.LogOutScreen
+import com.sergiu.libihb.presentation.screens.main.MainScreen
+import com.sergiu.libihb.presentation.screens.settings.SettingsScreen
+import com.sergiu.libihb.presentation.screens.share.ShareScreen
+import com.sergiu.libihb.presentation.screens.login.LogInScreen
 
 @Composable
 fun LIBIHBNavigation(){
