@@ -10,4 +10,8 @@
     <string name="password_requirement">The password must be at least 6 characters</string>
     <string name="login_icon_description">log in icon</string>
     <string name="login_text">Log in</string>
+
+    <string name="not_valid_message_blank_password">The password can\'t be empty</string>
+    <string name="not_valid_message_blank_email">The email can\'t be empty</string>
+
 </resources>

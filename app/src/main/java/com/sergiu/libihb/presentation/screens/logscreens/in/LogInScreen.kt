@@ -1,4 +1,4 @@
-package com.example.libihb.screens.log
+package com.sergiu.libihb.presentation.screens.logscreens.`in`
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
