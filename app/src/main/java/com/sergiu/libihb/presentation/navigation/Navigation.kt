@@ -12,6 +12,7 @@ import com.sergiu.libihb.presentation.screens.main.MainScreen
 import com.sergiu.libihb.presentation.screens.settings.SettingsScreen
 import com.sergiu.libihb.presentation.screens.share.ShareScreen
 import com.sergiu.libihb.presentation.screens.login.LogInScreen
+import com.sergiu.libihb.presentation.screens.register.RegisterScreen
 
 @Composable
 fun LIBIHBNavigation(){
@@ -53,6 +54,11 @@ fun LIBIHBNavigation(){
         composable(AppScreens.SettingsScreen.name){
             // pass the navaController to allow the user, if needed, to go to another screen
             SettingsScreen(navController = navController)
+        }
+
+        composable(AppScreens.RegisterScreen.name){
+            // pass the navaController to allow the user, if needed, to go to another screen
+            RegisterScreen(navController = navController)
         }
 
         composable(AppScreens.ShareScreen.name){

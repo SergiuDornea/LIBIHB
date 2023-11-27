@@ -14,4 +14,8 @@
     <string name="not_valid_message_blank_password">The password can\'t be empty</string>
     <string name="not_valid_message_blank_email">The email can\'t be empty</string>
 
+    <string name="new_user">New user?</string>
+    <string name="register_here">Register here</string>
+
+
 </resources>

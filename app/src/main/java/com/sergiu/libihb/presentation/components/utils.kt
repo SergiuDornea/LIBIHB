@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -39,6 +40,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -51,8 +53,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.sergiu.libihb.R
 import com.sergiu.libihb.presentation.events.LogInFormEvent
+import com.sergiu.libihb.presentation.navigation.AppScreens
 import com.sergiu.libihb.presentation.screens.login.LogInFormState
 import com.sergiu.libihb.presentation.screens.login.LogInViewModel
 import com.sergiu.libihb.presentation.screens.login.ValidationEvent
@@ -85,6 +89,7 @@ fun Logo(modifier: Modifier = Modifier){
 // and a submit button
 // this form is tied up to FIREBASE so that the log in actually happens
 fun LogForm(
+    navController : NavController,
     isLoading : Boolean = false ,// use it to enable/disable submit button if form empty or partially empty
 ){
 
@@ -134,6 +139,9 @@ fun LogForm(
             btnIconDescription = stringResource(id = R.string.login_icon_description),
             viewModel = viewModel,
             isLoading = isLoading)
+
+        // if no account - navigate to register screen
+        goToRegister(navController = navController)
 
     }
 
@@ -317,6 +325,30 @@ fun CustomPasswordInputTextField(
                 )
             }
         }
+    }
+}
+
+
+@Composable
+fun goToRegister(navController: NavController){
+    Row(
+        modifier = Modifier
+            .padding(top = 120.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.new_user)
+        )
+        Text(
+            text = stringResource(id = R.string.register_here),
+            modifier = Modifier
+                .clickable {
+                navController.navigate(AppScreens.RegisterScreen.name)
+            }
+            .padding(start = 5.dp),
+            fontWeight = FontWeight.Bold,
+        )
     }
 }
 

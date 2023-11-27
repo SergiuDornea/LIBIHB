@@ -10,5 +10,6 @@ enum class AppScreens {
     LogOutScreen,
     MainScreen,
     SettingsScreen,
+    RegisterScreen,
     ShareScreen;
 }

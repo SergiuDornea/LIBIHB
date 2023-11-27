@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.sergiu.libihb.presentation.components.LogForm
 import com.sergiu.libihb.presentation.components.Logo
+import com.sergiu.libihb.presentation.components.goToRegister
 
 @Composable
 fun LogInScreen(navController: NavController){
@@ -22,7 +23,8 @@ fun LogInScreen(navController: NavController){
         ) {
             // add the logo
             Logo()
-            LogForm()
+            // add the form
+            LogForm(navController = navController)
 
         }
     }
