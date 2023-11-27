@@ -11,19 +11,19 @@ class ValidatePassword : Validate{
 
 //    TODO make val acces string res
     private val inputIsBlank = "The password can't be empty"
-    private val notComplex = "The password must contain: letters (both lowercase and uppercase) and digits"
+    private val notComplex = "The password must include: lowercase and uppercase letters, and digits"
     private val doesNotMatchRequiredType = "The password must be over $minPasswordLenght characters long "
 
     // check if password is not blank , and returns a boolean value
     override fun inputNotBlank(inputType: String) :Boolean{
-        return inputType.isBlank()
+        return inputType.isNotBlank()
     }
 
     // a function that checks if the inputted string does qualify as an valid password
     // must be over 6 characters long
     // and returns a boolean value
     override fun matchesRequiredType(inputType: String) : Boolean{
-        return inputType.length > 5
+        return inputType.length >= minPasswordLenght
     }
 
 
@@ -38,7 +38,7 @@ class ValidatePassword : Validate{
     }
 
 
-    // the function that validates the email if everything is ok
+    // the function that validates the password if everything is ok
     // returns a validate result object
     override fun validate(inputType: String) :ValidateResult{
         if (!inputNotBlank(inputType)){
@@ -59,10 +59,17 @@ class ValidatePassword : Validate{
                 messageIfNotValid = notComplex
             )
         }
+
         return ValidateResult(
             isValid = true
         )
 
+    }
+
+
+    // if the inputed email is valid check if it exists in FireBase
+    override fun inDataBase(inputType: String): ValidateResult {
+        TODO("Not yet implemented")
     }
 
 }

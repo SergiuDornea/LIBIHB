@@ -15,7 +15,7 @@ class ValidateEmail : Validate{
 
     // check if email is not blank , and returns a boolean value
     override fun inputNotBlank(inputType: String) :Boolean{
-        return inputType.isBlank()
+        return inputType.isNotBlank()
     }
 
     // a function that checks if the inputted string does qualify as an valid email
@@ -28,11 +28,11 @@ class ValidateEmail : Validate{
     // the function that validates the email if everything is ok
     // returns a validate result object
     override fun validate(inputType: String) :ValidateResult{
-       if (!inputNotBlank(inputType)){
-           return ValidateResult(
-               isValid = false,
-               messageIfNotValid = inputIsBlank
-           )
+        if (!inputNotBlank(inputType)){
+            return ValidateResult(
+                isValid = false,
+                messageIfNotValid = inputIsBlank
+            )
         }
         if (!matchesRequiredType(inputType)){
             return ValidateResult(
@@ -44,6 +44,12 @@ class ValidateEmail : Validate{
             isValid = true
         )
 
+    }
+
+
+    // if the inputed email is valid check if it exists in FireBase
+    override fun inDataBase(inputType: String): ValidateResult {
+        TODO("Not yet implemented")
     }
 
 }
