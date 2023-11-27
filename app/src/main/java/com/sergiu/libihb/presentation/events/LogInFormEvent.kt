@@ -2,7 +2,7 @@ package com.sergiu.libihb.presentation.events
 
 
 // a class containing all posible events that belong to one
-// action done by the user , ex: submit button pressed
+// action done by the user on log in page , ex: submit button pressed
 sealed class LogInFormEvent {
     // use an object(singleton) - simple event
     object SubmitClicked: LogInFormEvent()

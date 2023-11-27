@@ -7,10 +7,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.sergiu.libihb.presentation.components.LogForm
 import com.sergiu.libihb.presentation.components.Logo
-import com.sergiu.libihb.presentation.components.goToRegister
+
 
 @Composable
 fun LogInScreen(navController: NavController){

@@ -12,6 +12,6 @@ interface Validate {
     // the function that validates the input field if inserted value is ok
     // returns a validate result object
     fun validate(inputType: String) : ValidateResult
-    fun inDataBase(inputType: String): ValidateResult
+
 
 }

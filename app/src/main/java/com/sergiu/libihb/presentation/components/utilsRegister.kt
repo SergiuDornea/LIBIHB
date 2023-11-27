@@ -1,10 +1,6 @@
 package com.sergiu.libihb.presentation.components
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,14 +8,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Login
+import androidx.compose.material.icons.filled.PersonAddAlt1
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -40,8 +34,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -49,62 +41,43 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.sergiu.libihb.R
 import com.sergiu.libihb.presentation.events.LogInFormEvent
+import com.sergiu.libihb.presentation.events.RegisterFormEvent
 import com.sergiu.libihb.presentation.navigation.AppScreens
-import com.sergiu.libihb.presentation.screens.login.LogInFormState
-import com.sergiu.libihb.presentation.screens.login.LogInViewModel
-import com.sergiu.libihb.presentation.screens.login.ValidationEvent
+import com.sergiu.libihb.presentation.screens.register.RegisterFormState
+import com.sergiu.libihb.presentation.screens.register.RegisterViewModel
+import com.sergiu.libihb.presentation.screens.register.ValidationEventReg
 
-@Preview
-@Composable
-// app logo to display around
-fun Logo(modifier: Modifier = Modifier){
-    Image(
-        painter = painterResource(id = R.drawable.ic_logo_transparent2),
-        contentDescription = stringResource(id = R.string.app_logo),
-        modifier = Modifier
-            .padding(top = 30.dp)
-            .size(180.dp)
-            .border(
-                border = BorderStroke(
-                    width = 3.dp,
-                    color = MaterialTheme.colorScheme.primary
-                ),
-                shape = CircleShape
-            ),
-        alignment = Alignment.TopCenter
-    )
-}
+//TODO REGISTRATION SCREEN UTILS
 
-@OptIn(ExperimentalComposeUiApi::class)
+
 @Composable
-// a log in form containing two custom input text fields,
-// one for user email, and one for user password
+// a registration  in form containing four custom input text fields,
+// user name, email, password, phone number
 // and a submit button
-// this form is tied up to FIREBASE so that the log in actually happens
-fun LogForm(
+
+fun RegistrationForm(
     navController : NavController,
-    isLoading : Boolean = false ,// use it to enable/disable submit button if form empty or partially empty
+    isLoading : Boolean = false,// use it to enable/disable submit button if form empty or partially empty
 ){
 
     // a variable used to know how to toggle between the visibility of the password - we want to allow the users to see
     // what they have typed in the password input field, if wanted or needed
     val passwordIsVisible = rememberSaveable { mutableStateOf(false) } // initially wee do not want to see the password
-
-    val viewModel = viewModel<LogInViewModel>()
+    val viewModel = viewModel<RegisterViewModel>() // the corresponding view model
     val formState =viewModel.formState
+
     //TODO grasp on this
     // when the subbmit button is clicked
     LaunchedEffect(key1 = null){
-        viewModel.validationEvents.collect() {
-            if(it is ValidationEvent.Success){
-                Log.d("srg", "1${formState.password} 2${formState.email}")
+        viewModel.validationEventsReg.collect() {
+            if(it is ValidationEventReg.Success){
+                Log.d("reg", "mere ceva")
             }
         }
     }
@@ -116,32 +89,52 @@ fun LogForm(
             .padding(top = 20.dp)
             .fillMaxSize()
     ) {
+        //custom name input field
+        CustomNameInputTextFieldReg(
+            viewModel = viewModel ,
+            formState = formState,
+            isEnabled = !isLoading)
+        Spacer(modifier = Modifier.padding(top = 16.dp))
+
         // custom email input field
-        CustomEmailInputTextField(
+        CustomEmailInputTextFieldReg(
             viewModel = viewModel,
             formState = formState,
             isEnabled = !isLoading)
-        Spacer(modifier = Modifier.padding(top = 25.dp))
+        Spacer(modifier = Modifier.padding(top = 16.dp))
+
+        // custom phone input
+        CustomPhoneInputTextFieldReg(
+            viewModel =viewModel ,
+            formState = formState,
+            isEnabled = !isLoading)
+        Spacer(modifier = Modifier.padding(top = 16.dp))
 
         // custom password field
-        CustomPasswordInputTextField(
+        CustomPasswordInputTextFieldReg(
             viewModel = viewModel,
             formState = formState,
             isEnabled = !isLoading,
             passwordIsVisible = passwordIsVisible
         )
 
-        Spacer(modifier = Modifier.padding(top = 35.dp))
+
+        Spacer(modifier = Modifier.padding(top = 65.dp))
         // custom  submit button
-        SubmitButton(
-            btnText = stringResource(id = R.string.login_text),
-            btnIcon = Icons.Default.Login,
-            btnIconDescription = stringResource(id = R.string.login_icon_description),
+        SubmitButtonReg(
+            btnText = stringResource(id = R.string.register_text),
+            btnIcon = Icons.Default.PersonAddAlt1,
+            btnIconDescription = stringResource(id = R.string.register_icon_description),
             viewModel = viewModel,
             isLoading = isLoading)
 
         // if no account - navigate to register screen
-        goToRegister(navController = navController)
+        goTo(
+            navController =navController ,
+            route = AppScreens.LogInScreen.name,
+            text1 = stringResource(id = R.string.already_have_acc),
+            linkText = stringResource(id = R.string.login_here)
+        )
 
     }
 
@@ -149,52 +142,63 @@ fun LogForm(
 }
 
 
-
-// a custom submit button usable for both log in and sign in
-// to reuse code properly
+// Name input text field
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SubmitButton(
-    btnText: String,
-    btnIcon: ImageVector,
-    btnIconDescription: String,
-    viewModel: LogInViewModel,
-    isLoading: Boolean
-    ){
-    Button(
-        onClick = {
-                  viewModel.whenEventHappens(LogInFormEvent.SubmitClicked)
-        },
-        modifier = Modifier
-            .width(250.dp)
-            .height(50.dp)
-            .clip(RoundedCornerShape(bottomStart = 35.dp, topEnd = 35.dp))
-    ){
-        if (!isLoading){
-            Icon(
-                imageVector = btnIcon,
-                contentDescription = btnIconDescription,
+fun CustomNameInputTextFieldReg(
+    modifier: Modifier = Modifier,
+    viewModel: RegisterViewModel,
+    formState: RegisterFormState,
+    isEnabled: Boolean,
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Top
+    ) {
+        OutlinedTextField(
+            value = formState.name,
+            onValueChange = { name ->
+                viewModel.whenEventHappens(RegisterFormEvent.NameChanged(name))
+            },
+            enabled = isEnabled,
+            singleLine = true,
+            isError = formState.nameError != null,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions.Default,
+            label = {
+                Text(text = (stringResource(id = R.string.name_label)))
+            },
+
             )
-            Spacer(modifier = Modifier.padding(end = 7.dp))
-            Text(
-                text = btnText,
-                fontWeight = FontWeight.Bold,)
-        }else{
-            // if it is loading display a loading indicator to inform the user that something is happening
-            CircularProgressIndicator()
+
+        // Add space only if there is an error
+        if (formState.nameError != null) {
+            Row {
+                Text(
+                    text = formState.nameError,
+                    fontWeight = FontWeight.Light,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.padding(top = 8.dp),
+                    fontSize = 10.sp,
+                    textAlign = TextAlign.Start
+
+                )
+            }
         }
     }
-
-
 }
 
 
 // Email input text field
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomEmailInputTextField(
+fun CustomEmailInputTextFieldReg(
     modifier: Modifier = Modifier,
-    viewModel: LogInViewModel,
-    formState: LogInFormState,
+    viewModel: RegisterViewModel,
+    formState: RegisterFormState,
     isEnabled: Boolean,
 ) {
     Column(
@@ -204,7 +208,7 @@ fun CustomEmailInputTextField(
         OutlinedTextField(
             value = formState.email,
             onValueChange = { email ->
-                viewModel.whenEventHappens(LogInFormEvent.EmailChanged(email))
+                viewModel.whenEventHappens(RegisterFormEvent.EmailChanged(email))
             },
             enabled = isEnabled,
             singleLine = true,
@@ -218,7 +222,7 @@ fun CustomEmailInputTextField(
                 Text(text = (stringResource(id = R.string.email_label)))
             },
 
-        )
+            )
 
         // Add space only if there is an error
         if (formState.emailError != null) {
@@ -238,13 +242,13 @@ fun CustomEmailInputTextField(
 }
 
 
-//Password input text field
+// Password input text field
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomPasswordInputTextField(
+fun CustomPasswordInputTextFieldReg(
     modifier: Modifier = Modifier, // make it optional
-    viewModel: LogInViewModel,
-    formState: LogInFormState,
+    viewModel: RegisterViewModel,
+    formState: RegisterFormState,
     isEnabled: Boolean,
     passwordIsVisible: MutableState<Boolean>, // used to shift the visual transformation of the text field
 
@@ -262,7 +266,7 @@ fun CustomPasswordInputTextField(
         OutlinedTextField(
             value = formState.password,
             onValueChange = { password ->
-                viewModel.whenEventHappens(LogInFormEvent.PasswordChanged(password))
+                viewModel.whenEventHappens(RegisterFormEvent.PasswordChanged(password))
             },
             enabled = isEnabled,// set the enabled value to the value of the parameter passed
             singleLine = true, // allow only a single line for the field
@@ -328,28 +332,89 @@ fun CustomPasswordInputTextField(
     }
 }
 
-
+// Phone input text field
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun goToRegister(navController: NavController){
-    Row(
-        modifier = Modifier
-            .padding(top = 120.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+fun CustomPhoneInputTextFieldReg(
+    modifier: Modifier = Modifier,
+    viewModel: RegisterViewModel,
+    formState: RegisterFormState,
+    isEnabled: Boolean,
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Top
     ) {
-        Text(
-            text = stringResource(id = R.string.new_user)
-        )
-        Text(
-            text = stringResource(id = R.string.register_here),
-            modifier = Modifier
-                .clickable {
-                navController.navigate(AppScreens.RegisterScreen.name)
+        OutlinedTextField(
+            value = formState.phone,
+            onValueChange = { phone ->
+                viewModel.whenEventHappens(RegisterFormEvent.PhoneChanged(phone))
+            },
+            enabled = isEnabled,
+            singleLine = true,
+            isError = formState.phoneError != null,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Phone,
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions.Default,
+            label = {
+                Text(text = (stringResource(id = R.string.phone_label)))
+            },
+
+            )
+
+        // Add space only if there is an error
+        if (formState.phoneError != null) {
+            Row {
+                Text(
+                    text = formState.phoneError,
+                    fontWeight = FontWeight.Light,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.padding(top = 8.dp),
+                    fontSize = 10.sp,
+                    textAlign = TextAlign.Start
+
+                )
             }
-            .padding(start = 5.dp),
-            fontWeight = FontWeight.Bold,
-        )
+        }
     }
 }
 
+
+// Submit btn
+@Composable
+fun SubmitButtonReg(
+    btnText: String,
+    btnIcon: ImageVector,
+    btnIconDescription: String,
+    viewModel: RegisterViewModel,
+    isLoading: Boolean
+){
+    Button(
+        onClick = {
+            viewModel.whenEventHappens(RegisterFormEvent.SubmitClicked)
+        },
+        modifier = Modifier
+            .width(250.dp)
+            .height(50.dp)
+            .clip(RoundedCornerShape(bottomStart = 35.dp, topEnd = 35.dp))
+    ){
+        if (!isLoading){
+            Icon(
+                imageVector = btnIcon,
+                contentDescription = btnIconDescription,
+            )
+            Spacer(modifier = Modifier.padding(end = 7.dp))
+            Text(
+                text = btnText,
+                fontWeight = FontWeight.Bold,)
+        }else{
+            // if it is loading display a loading indicator to inform the user that something is happening
+            CircularProgressIndicator()
+        }
+    }
+
+
+}
 

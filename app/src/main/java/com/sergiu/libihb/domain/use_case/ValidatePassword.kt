@@ -7,12 +7,12 @@ package com.sergiu.libihb.domain.use_case
 class ValidatePassword : Validate{
 
     // const val to chage easy if needed
-    private val minPasswordLenght : Int = 6
+    private val minPasswordLength : Int = 6
 
 //    TODO make val acces string res
     private val inputIsBlank = "The password can't be empty"
     private val notComplex = "The password must include: lowercase and uppercase letters, and digits"
-    private val doesNotMatchRequiredType = "The password must be over $minPasswordLenght characters long "
+    private val doesNotMatchRequiredType = "The password must be over $minPasswordLength characters long "
 
     // check if password is not blank , and returns a boolean value
     override fun inputNotBlank(inputType: String) :Boolean{
@@ -23,7 +23,7 @@ class ValidatePassword : Validate{
     // must be over 6 characters long
     // and returns a boolean value
     override fun matchesRequiredType(inputType: String) : Boolean{
-        return inputType.length >= minPasswordLenght
+        return inputType.length >= minPasswordLength
     }
 
 
@@ -68,7 +68,7 @@ class ValidatePassword : Validate{
 
 
     // if the inputed email is valid check if it exists in FireBase
-    override fun inDataBase(inputType: String): ValidateResult {
+    fun inDataBase(inputType: String): ValidateResult {
         TODO("Not yet implemented")
     }
 

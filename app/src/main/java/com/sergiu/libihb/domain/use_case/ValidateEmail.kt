@@ -48,7 +48,7 @@ class ValidateEmail : Validate{
 
 
     // if the inputed email is valid check if it exists in FireBase
-    override fun inDataBase(inputType: String): ValidateResult {
+    fun inDataBase(inputType: String): ValidateResult {
         TODO("Not yet implemented")
     }
 
