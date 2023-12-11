@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sergiu.libihb.domain.use_case.ValidateEmail
-import com.sergiu.libihb.domain.use_case.ValidatePassword
+import com.sergiu.libihb.domain.use_case_validate.ValidateEmail
+import com.sergiu.libihb.domain.use_case_validate.ValidatePassword
 import com.sergiu.libihb.presentation.events.LogInFormEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

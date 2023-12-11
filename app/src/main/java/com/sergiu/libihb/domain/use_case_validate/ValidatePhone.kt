@@ -1,4 +1,4 @@
-package com.sergiu.libihb.domain.use_case
+package com.sergiu.libihb.domain.use_case_validate
 
 import android.util.Patterns
 

@@ -1,4 +1,4 @@
-package com.sergiu.libihb.domain.use_case
+package com.sergiu.libihb.domain.use_case_validate
 
 class ValidateName:Validate {
     // const val to change easy if needed

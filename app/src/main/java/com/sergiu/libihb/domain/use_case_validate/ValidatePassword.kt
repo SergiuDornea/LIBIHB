@@ -1,4 +1,4 @@
-package com.sergiu.libihb.domain.use_case
+package com.sergiu.libihb.domain.use_case_validate
 
 
 // by using the use-cases we follow the single responsibility principle
