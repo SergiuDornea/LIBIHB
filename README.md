@@ -12,7 +12,7 @@ The application should allow users to view the details of a travel memory. The d
 
 
 
-
+1.3.0 - base line -TODO FB 🔥
 Splash Screen:
 - new splash screen api
 
