@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "590571498361",
+    "project_id": "libihb",
+    "storage_bucket": "libihb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590571498361:android:19a949d0de176584f31da8",
+        "android_client_info": {
+          "package_name": "com.sergiu.libihb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMaHMse6Tgd6881zH688T2bj_97e9RXes"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

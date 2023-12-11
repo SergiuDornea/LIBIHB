@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">LIBIHB</string>
+
+<!--    log in page related-->
+    <string name="app_logo">application logo</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="name_label">Name</string>
+    <string name="phone_label">Phone</string>
+    <string name="visible_password">visible password</string>
+    <string name="invisible_password">invisible password</string>
+    <string name="password_requirement">The password must be at least 6 characters</string>
+    <string name="login_icon_description">log in icon</string>
+    <string name="register_icon_description">sing in icon</string>
+    <string name="login_text">Log in</string>
+    <string name="register_text">Sing in</string>
+
+    <string name="not_valid_message_blank_password">The password can\'t be empty</string>
+    <string name="not_valid_message_blank_email">The email can\'t be empty</string>
+
+    <string name="new_user">New user?</string>
+    <string name="create_new_user">Create new user:</string>
+    <string name="register_here">Register here</string>
+    <string name="already_have_acc">Already have an account?</string>
+    <string name="login_here">Log in here</string>
+
+
+
+</resources>
